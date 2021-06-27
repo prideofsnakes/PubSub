@@ -16,6 +16,8 @@ public class PublisherApp {
 	public static final Logger logger = Logger.getLogger(
 			PublisherApp.class.getName());
 	
+	private static final String uri = "http://localhost:8080/sendMes";
+	
 	public static void main(String[] args) {
 
 		logger.log(Level.INFO, "Starting Publisher!");
@@ -55,7 +57,7 @@ public class PublisherApp {
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/sendMes"))
+                .uri(URI.create(uri))
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 
