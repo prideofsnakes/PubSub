@@ -32,16 +32,19 @@ public class Controller {
     	if (map.get("action").equals("PURCHASE")) {
         	PurchaseEntity pe = new PurchaseEntity();
         	pe.setTs((long)map.get("timestamp"));
-        	pe.setMsisdn((long)map.get("msisdn"));
+        	String svalue = String.valueOf(map.get("msisdn"));
+        	pe.setMsisdn(Long.valueOf(svalue));
         	purchaseRepo.save(pe);
     	}
     	else {
         	SubscribeEntity se = new SubscribeEntity();
         	se.setTs((long)map.get("timestamp"));
-        	se.setMsisdn((long)map.get("msisdn"));
+        	String svalue = String.valueOf(map.get("msisdn"));
+        	se.setMsisdn(Long.valueOf(svalue));
         	subscribeRepo.save(se);
     	}
     	logger.info("Message stored to DB");
     	return "OK";
     }
+    
 }
