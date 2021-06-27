@@ -22,7 +22,7 @@ public class SubscribeEntity {
     	this.msisdn = source;
     }
     
-    public void setMsisdn(Timestamp ts) {
-    	this.ts = ts;
+    public void setTs(long tsLong) {
+    	this.ts = new Timestamp(tsLong);
     }
 }

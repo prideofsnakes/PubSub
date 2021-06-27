@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class PublisherApp {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String s = "";
@@ -22,6 +22,7 @@ public class PublisherApp {
 			if (s.equals("send!")) {
 				GeneratedMessage gm = new GeneratedMessage();
 				System.out.println(gm.getMapValue());
+				sendMessage(gm);
 			}
 		}
 		}
@@ -29,20 +30,24 @@ public class PublisherApp {
 		catch (IOException ioe) {
 			System.out.println(ioe.getMessage());
 		}
+		
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		finally {
 			System.exit(0);
 		}
 		
 	}
 	
-	private int sendMessage(GeneratedMessage gm) throws Exception {
+	private static int sendMessage(GeneratedMessage gm) throws Exception {
 	    ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper
                 .writeValueAsString(gm.getMapValue());
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("localhost:8080/sendMes"))
+                .uri(URI.create("http://localhost:8080/sendMes"))
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 
