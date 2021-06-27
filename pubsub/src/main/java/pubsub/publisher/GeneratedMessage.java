@@ -1,5 +1,9 @@
 package pubsub.publisher;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -11,7 +15,7 @@ public class GeneratedMessage {
 	private final String[] actions = {"PURCHASE", "SUBSCRIPTION"};
 	
 	GeneratedMessage(){
-		this.ts = System.currentTimeMillis() / 1000;
+		this.ts = getUTCTime();
 		this.msisdn = randomizeMsisdn();
 		this.action = randomizeAction(this.actions);
 	}
@@ -40,6 +44,17 @@ public class GeneratedMessage {
 	private String randomizeAction(String [] actions) {
 	    int rnd = new Random().nextInt(actions.length);
 	    return actions[rnd];
+	}
+	
+	private long getUTCTime() {
+	    LocalDateTime ldt = LocalDateTime.now();
+
+	    ZonedDateTime zdt = ZonedDateTime.of(ldt, ZoneId.systemDefault());
+	    ZonedDateTime gmt = zdt.withZoneSameInstant(ZoneId.of("GMT"));
+
+	    Timestamp ts = Timestamp.valueOf(gmt.toLocalDateTime());
+	    
+	    return ts.getTime();
 	}
 	
 	public Map<String, Object> getMapValue(){

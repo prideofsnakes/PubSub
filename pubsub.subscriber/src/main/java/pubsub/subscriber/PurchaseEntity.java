@@ -15,11 +15,11 @@ public class PurchaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
  
-    private String msisdn;
+    private long msisdn;
     private Timestamp ts;
     
-    public void setMsisdn(String source) {
-    	this.msisdn = source;
+    public void setMsisdn(long l) {
+    	this.msisdn = l;
     }
     
     public void setTs(long tsLong) {
